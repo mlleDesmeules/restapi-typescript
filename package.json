@@ -4,7 +4,7 @@
 	"description"     : "A simple NodeJS RESTapi in TypeScript",
 	"main"            : "dist/Server.js",
 	"scripts"         : {
-		"start" : "SET NODE_ENV=dev&& nodemon",
+		"start" : "SET DEBUG=http&&SET NODE_ENV=dev&& nodemon",
 		"test"  : "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository"      : {

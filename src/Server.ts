@@ -4,11 +4,11 @@
 
 import * as config  from "config";
 import * as http    from "http";
+import * as debug   from "debug";
 
-const debug = require("debug")('http');
+import App from "./App";
 
-import App from "./App";    
-
+debug = debug("http");
 debug("ts-express:server");
 
 /*
