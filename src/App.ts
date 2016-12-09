@@ -6,6 +6,9 @@ import * as config      from "config";
 import * as express     from "express";
 import * as logger      from "morgan";
 
+import AuthRouter from "./components/Authentication/Auth.router";
+import UserRouter from "./components/Users/User.router";
+
 /**
  *
  */
@@ -53,6 +56,9 @@ export class App {
 		this.router.get("/", (req, res, next) => {
 			res.status(200).json({ message : "Default Route" });
 		});
+
+		this.express.use("/api/auth", AuthRouter);
+		this.express.use("/api/user", UserRouter);
 
 		this.express.use("/", this.router);
 	}
