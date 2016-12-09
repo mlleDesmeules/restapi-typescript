@@ -4,11 +4,11 @@
 
 import * as config  from "config";
 import * as http    from "http";
-import * as debug   from "debug";
 
-import App from "./App";
+import App      from "./App";
+import Database from "./Database";
+import debug    from "./shared/Debug";
 
-debug = debug("http");
 debug("ts-express:server");
 
 /*
@@ -20,13 +20,12 @@ const port = config.get("server.port");
  |      DATABASE
  */
 
-//  TODO    create database class
-//  TODO    connect database
+new Database().connect();
 
 /*
  |      APPLICATION
  */
-App.set(port);
+App.set("port", port);
 
 /*
  |      SERVER
