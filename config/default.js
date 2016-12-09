@@ -8,6 +8,6 @@ module.exports = {
 		"port"     : "27017",
 		"user"     : "",
 		"password" : "",
-		"database" : ""
+		"database" : "test"
 	}
 }
