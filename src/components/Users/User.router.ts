@@ -2,6 +2,7 @@
  |      IMPORTS
  */
 
+import { User, UserDocument, Users } from "./User";
 import { Router, Request, Response, NextFunction } from "express";
 
 /**
@@ -45,7 +46,27 @@ export class UserRouter {
 	 */
 	public create (req : Request, res : Response, next : NextFunction) : void
 	{
+		/*
+		 *  Define new user object
+		 */
+		let myUser = new User({
+			email    : req.body.email,
+			password : req.body.password,
+			profile  : {
+				firstname : req.body.firstname,
+				lastname  : req.body.lastname,
+			}
+		});
 
+		/*
+		 *  Create new user in database
+		 */
+		Users
+			.create(myUser, function (err : any, doc : UserDocument) {
+				if (err) { return res.status(400).json(err); }
+
+				return res.status(200).json(doc);
+			});
 	}
 	
 	/**
@@ -56,7 +77,12 @@ export class UserRouter {
 	 */
 	public delete (req : Request, res : Response, next : NextFunction) : void
 	{
+		Users
+			.findByIdAndRemove(req.params.id, (err : any) => {
+				if (err) { return res.status(400).json(err); }
 
+				return res.status(200);
+			});
 	}
 	
 	/**
@@ -67,7 +93,12 @@ export class UserRouter {
 	 */
 	public getAll (req : Request, res : Response, next : NextFunction) : void
 	{
-		
+		Users
+			.find({}, "-password", (err : any, docs : Array<UserDocument>) => {
+				if (err) { return res.status(400).json(err); }
+
+				return res.status(200).json(docs);
+			});
 	}
 	
 	/**
@@ -78,7 +109,12 @@ export class UserRouter {
 	 */
 	public getOne (req : Request, res : Response, next : NextFunction) : void
 	{
-		
+		Users
+			.findById(req.params.id, "-password", (err : any, doc : UserDocument) => {
+				if (err) { return res.status(400).json(err); }
+
+				return res.status(200).json(doc);
+			});
 	}
 	
 	/**
