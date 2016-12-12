@@ -71,3 +71,8 @@ function onListening () : void
 
 	debug(`Listening on ${bind}`);
 }
+
+/*
+ |      EXPORTS
+ */
+export default Server;
