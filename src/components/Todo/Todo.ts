@@ -42,7 +42,7 @@ let schema = new Schema({
 		default : false,
 	},
 	idAuthor    : {
-		type     : Schema.types.ObjectId,
+		type     : Schema.Types.ObjectId,
 		ref      : "user",
 		required : true,
 	},
