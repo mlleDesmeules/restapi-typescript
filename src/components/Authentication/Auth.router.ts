@@ -2,14 +2,14 @@
  |      IMPORTS
  */
 
-import * as config   from "config";
 import * as jwt      from "jsonwebtoken";
 import * as passport from "passport";
 
-import { Auth }                                    from "./Auth";
+import Auth from "./Auth";
 import { User, Users, UserDocument }               from "../Users/User";
 import { Router, Request, Response, NextFunction } from "express";
 
+const config = require( "config" );
 const crypto = require( "crypto" );
 
 /**
@@ -26,6 +26,8 @@ export class AuthRouter {
 
 	private requireAuth;
 	private requireLogin;
+
+	private _secret = config.get("passport.secret");
 
 	public router : Router;
 
@@ -45,8 +47,8 @@ export class AuthRouter {
 	 */
 	private _routes () : void
 	{
-		this.router.post("/login",      this.requireLogin, this.login);
-		this.router.post("/register",   this.register);
+		this.router.post("/login",      this.requireLogin, this.login.bind(this));
+		this.router.post("/register",   this.register.bind(this));
 	}
 
 	/**
@@ -58,7 +60,7 @@ export class AuthRouter {
 	 */
 	private _generateToken ( user : Object )
 	{
-		return jwt.sign( user, config.get("passport.secret"), { expiresIn : this.JWT_EXPIRE_TIME });
+		return jwt.sign( user, this._secret, { expiresIn : this.JWT_EXPIRE_TIME });
 	}
 
 	/**
@@ -86,7 +88,7 @@ export class AuthRouter {
 	 * @param res
 	 * @param next
 	 */
-	public register (req : Request, res : Response, next : NextFunction) : void
+	public register (req : Request, res : Response, next : NextFunction) : Response
 	{
 		/*
 		 *  Return error if no email provided
@@ -116,16 +118,16 @@ export class AuthRouter {
 				let registerUser = new User( {
 					email    : req.body.email,
 					password : req.body.password,
-					profile  : { firstname : req.body.firstName, lastname : req.body.lastName },
+					profile  : { firstname : req.body.firstname, lastname : req.body.lastname },
 				} );
 
 				Users
-					.save(registerUser, (err : any, user : UserDocument) => {
+					.create(registerUser, (err : any, user : UserDocument) => {
 						if (err) { return next(err); }
 
 						let userInfo = this._setUserInfo(user);
 						let token    = this._generateToken(userInfo);
-						
+
 						res
 							.status(201)
 							.json({
@@ -148,9 +150,9 @@ export class AuthRouter {
 	{
 		return {
 			_id       : request._id,
-			firstname : request.firstname,
-			lastname  : request.lastname,
 			email     : request.email,
+			firstname : request.profile.firstname,
+			lastname  : request.profile.lastname,
 		};
 	}
 }
