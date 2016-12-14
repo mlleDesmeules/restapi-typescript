@@ -12,7 +12,7 @@ describe("User /api/user", () => {
 	beforeEach("Remove Users", (done : Function) => {
 		Users
 			.remove({}, (err) => {
-				done()
+				done();
 			});
 	});
 
@@ -42,7 +42,7 @@ describe("User /api/user", () => {
 				profile  : {
 					firstname : "Roxanne",
 					lastname  : "Desmeules",
-				}
+				},
 			});
 
 			/*

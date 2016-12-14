@@ -39,7 +39,7 @@ export class UserRouter {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param req
 	 * @param res
 	 * @param next
@@ -55,7 +55,7 @@ export class UserRouter {
 			profile  : {
 				firstname : req.body.firstname,
 				lastname  : req.body.lastname,
-			}
+			},
 		});
 
 		/*
@@ -70,7 +70,7 @@ export class UserRouter {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param req
 	 * @param res
 	 * @param next
@@ -86,7 +86,7 @@ export class UserRouter {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param req
 	 * @param res
 	 * @param next
@@ -102,7 +102,7 @@ export class UserRouter {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param req
 	 * @param res
 	 * @param next
@@ -118,7 +118,7 @@ export class UserRouter {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param req
 	 * @param res
 	 * @param next

@@ -56,25 +56,25 @@ let schema = new Schema({
 		type      : String,
 		lowercase : true,
 		unique    : true,
-		required  : true
+		required  : true,
 	},
 	password             : {
 		type     : String,
-		required : true
+		required : true,
 	},
 	profile              : {
 		firstname : { type : String },
-		lastname  : { type : String }
+		lastname  : { type : String },
 	},
 	resetPasswordToken   : { type : String },
-	resetPasswordExpires : { type : Date }
+	resetPasswordExpires : { type : Date },
 });
 
-schema.pre('save', function(next) {
-	const user = this,
-	      SALT_FACTOR = 5;
+schema.pre("save", function(next) {
+	const user = this;
+	const SALT_FACTOR = 5;
 
-	if (!user.isModified('password')) { return next(); }
+	if (!user.isModified("password")) { return next(); }
 
 	bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
 		if (err) { return next(err); }
@@ -98,4 +98,4 @@ export interface UserDocument extends User, Document { }
 /*
  |      USER MODEL
  */
-export const Users = model<UserDocument>('User', schema);
+export const Users = model<UserDocument>("user", schema);

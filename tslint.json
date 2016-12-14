@@ -4,16 +4,19 @@
 		"class-name"             : true,
 		"comment-format"         : [
 			true,
-			"check-space",
-			"check-uppercase"
+			"check-space"
 		],
 		"indent"                 : [
 			true,
 			"tabs"
 		],
+		"max-classes-per-file"   : [
+			true,
+			2
+		],
 		"no-eval"                : true,
 		"no-internal-module"     : true,
-		"no-trailing-whitespace" : true,
+		"no-trailing-whitespace" : false,
 		"no-unsafe-finally"      : true,
 		"no-var-keyword"         : true,
 		"one-line"               : [

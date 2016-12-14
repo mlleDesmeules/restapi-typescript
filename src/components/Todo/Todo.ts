@@ -11,19 +11,19 @@ export class Todo {
 
 	public title        : string;
 	public description  : string;
-	public is_completed : boolean;
-	public id_author    : string;
+	public isCompleted  : boolean;
+	public idAuthor     : string;
 
 	/**
 	 *
 	 * @param data
 	 */
-	constructor (data : { title : string, description : string, is_completed : boolean, id_author : string })
+	constructor (data : { title : string, description : string, isCompleted : boolean, idAuthor : string })
 	{
-		this.title        = data.title;
-		this.description  = data.description;
-		this.is_completed = data.is_completed;
-		this.id_author    = data.id_author;
+		this.title       = data.title;
+		this.description = data.description;
+		this.isCompleted = data.isCompleted;
+		this.idAuthor    = data.idAuthor;
 	}
 
 }
@@ -32,20 +32,20 @@ export class Todo {
  |      SCHEMA & METHODS
  */
 let schema = new Schema({
-	title        : {
-		type : String,
-		required : true
+	title       : {
+		type     : String,
+		required : true,
 	},
-	description  : String,
-	is_completed : {
+	description : String,
+	isCompleted : {
 		type    : Boolean,
-		default : false
+		default : false,
 	},
-	id_author    : {
+	idAuthor    : {
 		type     : Schema.types.ObjectId,
 		ref      : "user",
 		required : true,
-	}
+	},
 });
 
 /*
@@ -56,4 +56,4 @@ export interface TodoDocument extends Todo, Document { }
 /*
  |      EXPORT TO-DO MODEL
  */
-export const Todos = model<TodoDocument>('todo', schema);
+export const Todos = model<TodoDocument>("todo", schema);

@@ -19,7 +19,7 @@ export default class Database {
 	private _port : string;
 	private _user : string;
 	private _password : string;
-	private _database_name : string;
+	private _databaseName : string;
 
 	constructor ()
 	{
@@ -57,7 +57,7 @@ export default class Database {
 			connection = `${connection}${this._user}:${this._password}@`;
 		}
 		
-		connection = `${connection}${this._host}:${this._port}/${this._database_name}`;
+		connection = `${connection}${this._host}:${this._port}/${this._databaseName}`;
 		
 		return connection;
 	}
@@ -78,9 +78,9 @@ export default class Database {
 		this._port          = (config.get("database.port")) ? config.get("database.port") : "27017";
 		this._user          = config.get("database.user");
 		this._password      = config.get("database.password");
-		this._database_name = config.get("database.database");
+		this._databaseName  = config.get("database.database");
 
-		if (!this._database_name.length) {
+		if (!this._databaseName.length) {
 			throw new Error("Database name is required");
 		}
 	}
@@ -92,7 +92,7 @@ export default class Database {
 	private _registerListener () : void
 	{
 		Mongoose.connection.on("connected", () => {
-			debug("Mongoose default connection open on : " + this._database_name);
+			debug("Mongoose default connection open on : " + this._databaseName);
 		});
 
 		Mongoose.connection.on("error", (err) => {

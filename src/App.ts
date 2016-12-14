@@ -38,7 +38,7 @@ export class App {
 	 */
 	private _middleware () : void
 	{
-		if (this.env === 'dev') {
+		if (this.env === "dev") {
 			this.express.use(logger("dev"));
 		}
 

@@ -69,15 +69,15 @@ export class AuthRouter {
 	 */
 	public login (req : Request, res : Response, next : NextFunction) : void
 	{
-		let UserInfo = this._setUserInfo( req.user );
-		let token    = this._generateToken( UserInfo );
+		let userInfo = this._setUserInfo( req.user );
+		let token    = this._generateToken( userInfo );
 
 		res
 			.status(200)
 			.json({
-					token : `JWT ${token}`,
-					user  : UserInfo,
-			      });
+				token : `JWT ${token}`,
+				user  : userInfo,
+			});
 	}
 
 	/**
@@ -116,22 +116,22 @@ export class AuthRouter {
 				let registerUser = new User( {
 					email    : req.body.email,
 					password : req.body.password,
-					profile  : { firstname : req.body.firstName, lastname : req.body.lastName }
+					profile  : { firstname : req.body.firstName, lastname : req.body.lastName },
 				} );
 
 				Users
 					.save(registerUser, (err : any, user : UserDocument) => {
 						if (err) { return next(err); }
 
-						let UserInfo = this._setUserInfo(user);
-						let token    = this._generateToken(UserInfo);
+						let userInfo = this._setUserInfo(user);
+						let token    = this._generateToken(userInfo);
 						
 						res
 							.status(201)
 							.json({
-									token : `JWT ${token}`,
-									user  : UserInfo,
-							      })
+								token : `JWT ${token}`,
+								user  : userInfo,
+							});
 					});
 			});
 	}

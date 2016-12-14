@@ -18,7 +18,7 @@ export default class Auth {
 	 *
 	 * @type {{usernameField: string}}
 	 */
-	private localOpt = { usernameField : 'email' };
+	private localOpt = { usernameField : "email" };
 
 	/**
 	 *
@@ -26,7 +26,7 @@ export default class Auth {
 	 */
 	private jwtOpt   = {
 		jwtFromRequest : ExtractJwt.fromAuthHeader(),
-		secretOrKey    : config.get("passport.secret")
+		secretOrKey    : config.get("passport.secret"),
 	};
 
 	/**
