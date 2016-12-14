@@ -5,6 +5,7 @@
 	"main"            : "dist/Server.js",
 	"scripts"         : {
 		"start" : "SET DEBUG=http&&SET NODE_ENV=dev&& nodemon",
+		"lint"  : "tslint -t stylish src/**/*.ts",
 		"test"  : "mocha --opts mocha.opts"
 	},
 	"repository"      : {
@@ -38,7 +39,6 @@
 		"@types/passport-jwt"   : "^2.0.19",
 		"@types/passport-local" : "^1.0.29",
 		"@types/supertest"      : "^2.0.0",
-
 		"chai"                  : "^3.5.0",
 		"gulp"                  : "^3.9.1",
 		"gulp-load-plugins"     : "^1.4.0",
@@ -48,6 +48,7 @@
 		"mockgoose"             : "^6.0.8",
 		"supertest"             : "^2.0.1",
 		"ts-node"               : "^1.7.0",
+		"tslint"                : "^4.0.2",
 		"typescript"            : "^2.1.4"
 	},
 	"dependencies"    : {
