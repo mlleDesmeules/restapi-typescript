@@ -15,7 +15,7 @@ import * as supertest from "supertest";
 
 const mockgoose = require( "mockgoose" )(mongoose);
 
-import Server from "../Server";
+import Server from "../../Server";
 
 /*
  |      EXPORTS

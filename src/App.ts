@@ -1,10 +1,14 @@
 /*
  |      IMPORTS
  */
+
+const config = require("config");
+const flash  = require("connect-flash");
+
 import * as bodyParser  from "body-parser";
-import * as config      from "config";
 import * as express     from "express";
 import * as logger      from "morgan";
+import * as session     from "express-session";
 
 import AuthRouter from "./components/Authentication/Auth.router";
 import UserRouter from "./components/Users/User.router";
@@ -41,6 +45,15 @@ export class App {
 		if (this.env === "dev") {
 			this.express.use(logger("dev"));
 		}
+
+		this.express.use(flash());
+
+		this.express.use(session({
+             secret            : config.get("passport.secret"),
+             resave            : false,
+             saveUninitialized : true,
+             cookie            : { secure : true }
+         }));
 
 		this.express.use(bodyParser.json());
 		this.express.use(bodyParser.urlencoded({ extended : false }));

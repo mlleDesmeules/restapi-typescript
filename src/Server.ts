@@ -7,7 +7,7 @@ import * as http    from "http";
 
 import App      from "./App";
 import Database from "./Database";
-import debug    from "./shared/Debug";
+import debug    from "./shared/imports/Debug";
 
 debug("ts-express:server");
 

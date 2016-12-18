@@ -3,7 +3,7 @@
  */
 
 import * as Mongoose from "mongoose";
-import debug         from "./shared/Debug";
+import debug         from "./shared/imports/Debug";
 
 const config  = require( "config" );
 const Promise = require( "promise" );
