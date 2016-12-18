@@ -2,12 +2,12 @@
  |      IMPORTS
  */
 
-import * as jwt      from "jsonwebtoken";
-import * as passport from "passport";
+import * as jwt from "jsonwebtoken";
+import Router   from "../../shared/App/Router";
 
-import Auth from "./Auth";
-import { User, Users, UserDocument }               from "../Users/User";
-import { Router, Request, Response, NextFunction } from "express";
+import { User, Users, UserDocument }       from "../Users/User";
+import { Request, Response, NextFunction } from "express";
+
 
 const config = require( "config" );
 const crypto = require( "crypto" );
@@ -15,7 +15,7 @@ const crypto = require( "crypto" );
 /**
  *
  */
-export class AuthRouter {
+export class AuthRouter extends Router {
 
 	private JWT_EXPIRE_TIME : number = 10080;
 
@@ -24,19 +24,14 @@ export class AuthRouter {
 	private ERR_PASSWORD    : string = "ERR_MISSING_PASSWORD";
 	private ERR_PROFILE     : string = "ERR_MISSING_FULLNAME";
 
-	private requireAuth;
-	private requireLogin;
-
 	private _secret = config.get("passport.secret");
 
-	public router : Router;
-
+	/**
+	 *
+	 */
 	constructor ()
 	{
-		this.router = Router();
-
-		this.requireAuth  = passport.authenticate("jwt", { session : false });
-		this.requireLogin = passport.authenticate("local", { session : false });
+		super();
 
 		this._routes();
 	}
@@ -47,7 +42,7 @@ export class AuthRouter {
 	 */
 	private _routes () : void
 	{
-		this.router.post("/login",      this.requireLogin, this.login.bind(this));
+		this.router.post("/login",      this.login.bind(this));
 		this.router.post("/register",   this.register.bind(this));
 	}
 
@@ -71,15 +66,23 @@ export class AuthRouter {
 	 */
 	public login (req : Request, res : Response, next : NextFunction) : void
 	{
-		let userInfo = this._setUserInfo( req.user );
-		let token    = this._generateToken( userInfo );
+		this.passport.authenticate("local", (err, user, info) => {
 
-		res
-			.status(200)
-			.json({
-				token : `JWT ${token}`,
-				user  : userInfo,
-			});
+			if (err) { return next(err); }
+
+			if (!user) { return res.status(401).json({ error : info.message }); }
+
+			let userInfo = this._setUserInfo( user );
+			let token    = this._generateToken( userInfo );
+
+			res
+				.status(200)
+				.json({
+					      token : `JWT ${token}`,
+					      user  : userInfo,
+				      });
+
+		})(req, res, next);
 	}
 
 	/**

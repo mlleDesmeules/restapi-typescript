@@ -1,4 +1,8 @@
 module.exports = {
+	"passport" : {
+		"secret" : "0a1KB16XCx"
+	},
+	
 	"server" : {
 		"port" : process.env.PORT || 9300
 	},
