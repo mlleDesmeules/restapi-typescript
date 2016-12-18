@@ -49,11 +49,11 @@ export class App {
 		this.express.use(flash());
 
 		this.express.use(session({
-             secret            : config.get("passport.secret"),
-             resave            : false,
-             saveUninitialized : true,
-             cookie            : { secure : true }
-         }));
+			secret            : config.get("passport.secret"),
+			resave            : false,
+			saveUninitialized : true,
+			cookie            : { secure : true },
+		}));
 
 		this.express.use(bodyParser.json());
 		this.express.use(bodyParser.urlencoded({ extended : false }));

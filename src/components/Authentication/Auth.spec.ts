@@ -18,7 +18,7 @@ describe("Authentication /api/auth", () => {
 
 	describe("/register", () => {
 		it("should NOT register a new user without an email", (done) => {
-			let body = { password : "aaa111", firstname: "Roxanne", lastname : "Desmeules", };
+			let body = { password : "aaa111", firstname: "Roxanne", lastname : "Desmeules" };
 
 			request
 				.post(`${url}/register`)
@@ -34,7 +34,7 @@ describe("Authentication /api/auth", () => {
 		});
 
 		it("should NOT register a new user without a password", (done) => {
-			let body = { email : "roxanne.desmeules@gmail.com", firstname: "Roxanne", lastname : "Desmeules", };
+			let body = { email : "roxanne.desmeules@gmail.com", firstname: "Roxanne", lastname : "Desmeules" };
 
 			request
 				.post(`${url}/register`)
@@ -50,7 +50,7 @@ describe("Authentication /api/auth", () => {
 		});
 
 		it("should NOT register a new user without a full name", (done) => {
-			let body = { email : "roxanne.desmeules@gmail.com", password : "aaa111", lastname : "Desmeules", };
+			let body = { email : "roxanne.desmeules@gmail.com", password : "aaa111", lastname : "Desmeules" };
 
 			request
 				.post(`${url}/register`)
@@ -87,7 +87,7 @@ describe("Authentication /api/auth", () => {
 			/*
 			 *  Create body that will be used for the registration process
 			 */
-			let body = { email : "roxanne.desmeules@gmail.com", password : "aaa111", firstname : "Roxanne", lastname : "Desmeules", };
+			let body = { email : "roxanne.desmeules@gmail.com", password : "aaa111", firstname : "Roxanne", lastname : "Desmeules" };
 
 			request
 				.post(`${url}/register`)
@@ -97,14 +97,14 @@ describe("Authentication /api/auth", () => {
 					expect(res.body).to.be.an("object");
 					expect(res.body).to.have.property("error");
 
-					expect(res.body.error).to.be.eql("ERR_USED_EMAIL")
+					expect(res.body.error).to.be.eql("ERR_USED_EMAIL");
 				})
 				.end(done);
 
 		});
 
 		it("should register a new user", (done) => {
-			let body = { email : "roxanne.desmeules@gmail.com", password : "aaa111", firstname : "Roxanne", lastname : "Desmeules", };
+			let body = { email : "roxanne.desmeules@gmail.com", password : "aaa111", firstname : "Roxanne", lastname : "Desmeules" };
 
 			request
 				.post(`${url}/register`)
@@ -187,12 +187,12 @@ describe("Authentication /api/auth", () => {
 				.expect(200)
 				.expect((res : any) => {
 					expect(res.body).to.be.an("object");
-					
+
 					expect(res.body).to.have.property("token");
 					expect(res.body).to.have.property("user");
-					
+
 					expect(res.body.token).to.match(/^JWT/);
-					
+
 					expect(res.body.user).to.have.property("_id");
 					expect(res.body.user).to.have.property("email");
 					expect(res.body.user).to.have.property("firstname");

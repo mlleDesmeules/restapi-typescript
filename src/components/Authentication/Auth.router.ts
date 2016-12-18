@@ -78,9 +78,9 @@ export class AuthRouter extends Router {
 			res
 				.status(200)
 				.json({
-					      token : `JWT ${token}`,
-					      user  : userInfo,
-				      });
+						token : `JWT ${token}`,
+						user  : userInfo,
+					});
 
 		})(req, res, next);
 	}
